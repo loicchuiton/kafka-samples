@@ -39,8 +39,8 @@ import static org.mockito.Mockito.verify;
 class KafkaListenerServiceTest {
 
     @Container
-    static KafkaContainer kafkaContainer = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:6.2.1"))
-        .waitingFor(Wait.forLogMessage(".*Container confluentinc/cp-kafka:6.2.1 started.*\\n", 1));
+    static KafkaContainer kafkaContainer = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.3.5"))
+        .waitingFor(Wait.forLogMessage(".*Container confluentinc/cp-kafka:7.3.5 started.*\\n", 1));
 
     @Autowired
     KafkaListenerService kafkaListenerService;
