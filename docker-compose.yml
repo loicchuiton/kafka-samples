@@ -9,7 +9,7 @@ services:
       - "22181:2181"
 
   kafka:
-    image: confluentinc/cp-kafka:latest
+    image: confluentinc/cp-kafka:7.3.5
     depends_on:
       - zookeeper
     ports:
@@ -26,7 +26,7 @@ services:
 
 
   init-kafka:
-    image: confluentinc/cp-kafka:latest
+    image: confluentinc/cp-kafka:7.3.5
     depends_on:
       - kafka
     entrypoint: [ '/bin/sh', '-c' ]
