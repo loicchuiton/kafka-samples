@@ -1,0 +1,13 @@
+spring:
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVER}
+    consumer:
+      group-id: "kafka-consumer.grp"
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+    listener:
+      concurrency: 2
+      ack-mode: manual
+#logging:
+#  level:
+#    "org.apache.kafka.*": WARN
