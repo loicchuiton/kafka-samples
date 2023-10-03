@@ -1,4 +1,4 @@
-package com.lchuiton.training.kafka.consumer;
+package com.lchuiton.training.kafka.reactive.consumer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

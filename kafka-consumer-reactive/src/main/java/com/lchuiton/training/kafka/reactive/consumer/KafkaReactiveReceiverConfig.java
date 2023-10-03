@@ -1,4 +1,4 @@
-package com.lchuiton.training.kafka.consumer;
+package com.lchuiton.training.kafka.reactive.consumer;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
