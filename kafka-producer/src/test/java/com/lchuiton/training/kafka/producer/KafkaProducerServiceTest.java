@@ -7,6 +7,7 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.common.header.Header;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.rnorth.ducttape.unreliables.Unreliables;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,12 @@ class KafkaProducerServiceTest {
     @DynamicPropertySource
     static void initEnv(DynamicPropertyRegistry registry) {
         registry.add("KAFKA_BOOTSTRAP_SERVER", () -> kafkaContainer.getBootstrapServers());
+    }
+
+    @AfterEach
+    void after() {
+        // In order to release the consumer, we have to unsubscribe it from the topic.
+        kafkaConsumer.unsubscribe();
     }
 
     @Test

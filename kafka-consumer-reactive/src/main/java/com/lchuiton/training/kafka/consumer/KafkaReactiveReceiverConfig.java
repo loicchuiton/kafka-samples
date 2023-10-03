@@ -17,7 +17,7 @@ import static java.util.List.of;
 import static reactor.kafka.receiver.KafkaReceiver.create;
 
 @Configuration
-@EnableConfigurationProperties({KafkaProperties.class})
+@EnableConfigurationProperties({ KafkaProperties.class })
 public class KafkaReactiveReceiverConfig {
 
     @Bean

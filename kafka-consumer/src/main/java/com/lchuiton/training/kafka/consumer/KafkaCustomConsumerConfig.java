@@ -21,8 +21,7 @@ import java.util.Map;
 @Profile("custom-config")
 public class KafkaCustomConsumerConfig {
 
-    @Bean
-    public ConsumerFactory<String, String> consumerFactory(KafkaProperties kafkaProperties) {
+    private ConsumerFactory<String, String> consumerFactory(KafkaProperties kafkaProperties) {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
 

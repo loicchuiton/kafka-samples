@@ -13,11 +13,20 @@ a predefine number of partitions on the Kafka Broker.
 
 ### Start Spring Application
 
-- Run `TestApplication.java` of one or more of the projects to publish or consume messages, depending of the type of
+- Run one or more of the projects to publish and/or consume messages, depending on the type of
   project. Some customization is possible using `application-int.yml` files.
 
 ## Unit Testing with TestContainers
 
 This project also demonstrate how to test an Apache Kafka integration using TestContainers. This helps to
 understand the behaviour of producing and consuming messages through Kafka and test different fields of the
-ConsumerRecords.  
+ConsumerRecords.
+
+## TODOs
+
+- [ ] Create an Avro Consumer
+- [ ] Parametrize topic name in all configurations
+- [ ] Shared KafkaService in a common module (reactive and non-reactive)
+- [ ] Add a way to visualize consumption metrics
+- [ ] More type of producers (volume, objects of different size, batching)
+- [ ] Optimize StepVerifier for reactive tests

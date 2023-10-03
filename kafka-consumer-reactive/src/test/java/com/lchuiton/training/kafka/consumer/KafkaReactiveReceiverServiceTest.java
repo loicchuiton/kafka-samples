@@ -38,7 +38,7 @@ class KafkaReactiveReceiverServiceTest {
 
     @Container
     static KafkaContainer kafkaContainer = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.3.5"))
-            .waitingFor(Wait.forLogMessage(".*Container confluentinc/cp-kafka:7.3.5 started.*\\n", 1));
+        .waitingFor(Wait.forLogMessage(".*Container confluentinc/cp-kafka:7.3.5 started.*\\n", 1));
 
     @Autowired
     KafkaReactiveReceiverService kafkaReactiveReceiverService;
@@ -69,16 +69,17 @@ class KafkaReactiveReceiverServiceTest {
 
         // Act - Assert
         StepVerifier.create(kafkaReactiveReceiverService.processReceiverRecords()).then(() -> {
-                    try {
-                        testPublisher.emit(kafkaProducer.send(producerRecord).get());
-                    } catch (InterruptedException | ExecutionException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
-                .expectNextMatches(e -> expectedMessagePayload.equals(e.value())
-                        && "1".equals(new String(e.headers().lastHeader("version").value())))
-                .expectNoEvent(Duration.of(2L, ChronoUnit.SECONDS))
-                .verifyTimeout(Duration.of(2L, ChronoUnit.SECONDS));
+            try {
+                testPublisher.emit(kafkaProducer.send(producerRecord).get());
+            }
+            catch (InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        })
+            .expectNextMatches(e -> expectedMessagePayload.equals(e.value())
+                    && "1".equals(new String(e.headers().lastHeader("version").value())))
+            .expectNoEvent(Duration.of(2L, ChronoUnit.SECONDS))
+            .verifyTimeout(Duration.of(2L, ChronoUnit.SECONDS));
     }
 
     @Configuration
@@ -92,7 +93,7 @@ class KafkaReactiveReceiverServiceTest {
 
         @Bean
         KafkaReactiveReceiverService kafkaListenerService(KafkaService kafkaService,
-                                                          KafkaReceiver<String, String> kafkaReceiver) {
+                KafkaReceiver<String, String> kafkaReceiver) {
             return new KafkaReactiveReceiverService(kafkaService, kafkaReceiver);
         }
 
