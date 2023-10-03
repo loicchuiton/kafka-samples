@@ -10,7 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Random;
+
+import static java.util.UUID.randomUUID;
 
 @Service
 public class KafkaProducerService implements ProducerService<String> {
@@ -18,8 +19,6 @@ public class KafkaProducerService implements ProducerService<String> {
     private final KafkaProducer<String, String> kafkaProducer;
 
     private final Logger logger = LoggerFactory.getLogger(KafkaProducerService.class);
-
-    private final Random random = new Random();
 
     @Autowired
     public KafkaProducerService(KafkaProducer<String, String> kafkaProducer) {
@@ -32,12 +31,12 @@ public class KafkaProducerService implements ProducerService<String> {
         Iterable<Header> messageHeaders = List.of(new RecordHeader("version", "1".getBytes()));
 
         // Create a new ProducerRecord
-        ProducerRecord<String, String> producerRecord = new ProducerRecord<>("eventTest.tpc", 0,
-                java.time.Instant.now().getEpochSecond(), "1", msg, messageHeaders);
+        ProducerRecord<String, String> producerRecord = new ProducerRecord<>("eventTest.tpc", null,
+                java.time.Instant.now().getEpochSecond(), randomUUID().toString(), msg, messageHeaders);
 
         // Send ProducerRecord to Kafka
         kafkaProducer.send(producerRecord);
-        logger.info("Message sent on partition {}", producerRecord.partition());
+        logger.info("Message {} sent.", producerRecord.key());
     }
 
 }

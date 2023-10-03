@@ -3,6 +3,7 @@ package com.lchuiton.training.kafka.consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Service;
@@ -16,19 +17,19 @@ public class KafkaListenerService {
 
     Logger logger = LoggerFactory.getLogger(KafkaListenerService.class);
 
+    @Autowired
     public KafkaListenerService(KafkaService kafkaService) {
-
         this.kafkaService = kafkaService;
     }
 
     @KafkaListener(topics = "eventTest.tpc")
     public void listen(ConsumerRecord<String, String> consumerRecord, Acknowledgment acknowledgment) {
 
-        String message = consumerRecord.value();
+        String key = consumerRecord.key();
         int partition = consumerRecord.partition();
         long offset = consumerRecord.offset();
 
-        logger.info("Receive message [{}] from partition {} - offset {}", message, partition, offset);
+        logger.info("Received event: key {} - partition {} - offset {}", key, partition, offset);
         logger.info("Headers");
 
         consumerRecord.headers()
